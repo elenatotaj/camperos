@@ -19,22 +19,29 @@ modules:
 
   - type: dnf
     repos:
-      files:
-        remove:
-          - sunshine
-
-  - type: rpm-ostree
+      cleanup: true # clean up added repos after module is done
+      nonfree: rpmfusion
     install:
-      - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-%OS_VERSION%.noarch.rpm
-      - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-%OS_VERSION%.noarch.rpm
+      skip-unavailable: true # skip unavailable packages
+      packages:
+        - kodi
+        - vlc
+    remove:
+      packages:
+        - sunshine
 
-  - type: rpm-ostree
-    install:
-      - kodi
-      - kodi-inputstream-adaptive
-#      - kodi-firewalld
-#      - intel-gpu-tools
-      - vlc
+#  - type: rpm-ostree
+#    install:
+#      - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-%OS_VERSION%.noarch.rpm
+#      - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-%OS_VERSION%.noarch.rpm
+
+#  - type: rpm-ostree
+#    install:
+#      - kodi
+#      - kodi-inputstream-adaptive
+##      - kodi-firewalld
+##      - intel-gpu-tools
+#      - vlc
 #      - makemkv
 #      - handbrake
 #    remove:
