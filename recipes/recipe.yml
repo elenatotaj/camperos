@@ -17,6 +17,12 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
+  - type: dnf
+    repos:
+      files:
+        remove:
+          - sunshine
+
   - type: rpm-ostree
     install:
       - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-%OS_VERSION%.noarch.rpm
@@ -24,32 +30,28 @@ modules:
 
   - type: rpm-ostree
     install:
-      - cage
       - kodi
       - kodi-inputstream-adaptive
 #      - kodi-firewalld
-      - nfs-utils
-      - samba
-      - tmux
-      - nano
-      - intel-gpu-tools
-
+#      - intel-gpu-tools
+      - vlc
+#      - makemkv
+#      - handbrake
 #    remove:
       # example: removing firefox (in favor of the flatpak)
       # "firefox" is the main package, "firefox-langpacks" is a dependency
-#      - firefox
-#      - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
-#      - sunshine
 
-#  - type: default-flatpaks
-#    notify: true # Send notification after install/uninstall is finished (true/false)
-#    system:
-#      # If no repo information is specified, Flathub will be used by default
-#      install:
-#        - org.mozilla.firefox
+  - type: default-flatpaks
+    notify: true # Send notification after install/uninstall is finished (true/false)
+    system:
+      # If no repo information is specified, Flathub will be used by default
+      install:
+        - org.mozilla.firefox
+        - com.makemkv.MakeMKV
+        - fr.handbrake.ghb
 #        - org.gnome.Loupe
 #      remove:
 #        - org.gnome.eog
-#    user: {} # Also add Flathub user repo, but no user packages
+    user: {} # Also add Flathub user repo, but no user packages
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
